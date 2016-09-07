@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。
-TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，Safari，Calendar，等系统app默认使用了这些机制来保证网络">
+<meta name="description" content="在iOS7时，当我们需要自定义模态弹出ViewController时需要一个实现UIViewControllerAnimatedTransitioning协议的类。并通过实现该协议的方法来达到我们希望的动画效果。
+到了iOS8，苹果为我们提供了一个UIPresentViewController，让我们可以更好地自定义弹出效果。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Network Security">
-<meta property="og:url" content="http://yoursite.com/2016/09/05/NetworkSecurityOfiOS/index.html">
+<meta property="og:title" content="How to implement a custom UIPresentViewController">
+<meta property="og:url" content="http://yoursite.com/2016/09/06/PresentViewController/index.html">
 <meta property="og:site_name" content="iossocket's blog">
-<meta property="og:description" content="iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。
-TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，Safari，Calendar，等系统app默认使用了这些机制来保证网络">
-<meta property="og:updated_time" content="2016-09-07T01:04:35.000Z">
+<meta property="og:description" content="在iOS7时，当我们需要自定义模态弹出ViewController时需要一个实现UIViewControllerAnimatedTransitioning协议的类。并通过实现该协议的方法来达到我们希望的动画效果。
+到了iOS8，苹果为我们提供了一个UIPresentViewController，让我们可以更好地自定义弹出效果。">
+<meta property="og:updated_time" content="2016-09-06T05:21:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Network Security">
-<meta name="twitter:description" content="iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。
-TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，Safari，Calendar，等系统app默认使用了这些机制来保证网络">
+<meta name="twitter:title" content="How to implement a custom UIPresentViewController">
+<meta name="twitter:description" content="在iOS7时，当我们需要自定义模态弹出ViewController时需要一个实现UIViewControllerAnimatedTransitioning协议的类。并通过实现该协议的方法来达到我们希望的动画效果。
+到了iOS8，苹果为我们提供了一个UIPresentViewController，让我们可以更好地自定义弹出效果。">
 
 
 
@@ -117,9 +117,9 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/05/NetworkSecurityOfiOS/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/06/PresentViewController/"/>
 
-  <title> Network Security | iossocket's blog </title>
+  <title> How to implement a custom UIPresentViewController | iossocket's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -239,7 +239,7 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
             
             
               
-                Network Security
+                How to implement a custom UIPresentViewController
               
             
           </h1>
@@ -251,8 +251,8 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T16:52:17+08:00" content="2016-09-05">
-              2016-09-05
+            <time itemprop="dateCreated" datetime="2016-09-06T13:13:02+08:00" content="2016-09-06">
+              2016-09-06
             </time>
           </span>
 
@@ -279,12 +279,8 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
       
 
       
-        <p>iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。</p>
-<h3 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h3><p>iOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，Safari，Calendar，等系统app默认使用了这些机制来保证网络的加密通信。高级API（如CFNetwork）可以让我们很方便的引入TLS，底层API（ <a href="https://developer.apple.com/library/mac/documentation/Security/Reference/secureTransportRef/" target="_blank" rel="external">SecureTransport</a>）对于TLS提供了更细颗粒度的控制。</p>
-<h4 id="App-Transport-Security"><a href="#App-Transport-Security" class="headerlink" title="App Transport Security"></a>App Transport Security</h4><p>当前若不做特殊处理，我们默认需要满足App Transport Security提出了安全需求，最好使用如下API进行网络连接：NSURLConnection、CFURL、NSURLSession。我们的服务器端也至少需要支持TLS1.2。<br>对于iOS9，默认是需要满足App Transport Security的要求，如需要修改其默认要求，需要在info.plist中复写App Transport Security。</p>
-<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>iOS的VPN配置，可以分为不同维度安全连接保证，例如：全局开启、针对某个App开启、针对某个域名开启。</p>
-<h3 id="Wi-Fi"><a href="#Wi-Fi" class="headerlink" title="Wi-Fi"></a>Wi-Fi</h3><p>iOS支持工业标准的Wi-Fi协议，可使用WPA2企业级加密方式，最大程度的保证数据在传输过程中的安全性。<br>当iOS设备未连接Wi-Fi，并且处于休眠状态，iOS使用随机MAC地址来扫描周围的可连接Wi-Fi。这种在休眠状态下的扫描，被称为Preferred Network Offload(PNO) 扫描。iOS设备会在锁屏后的短时间内进入休眠状态。使用随机MAC地址进行扫描可以防止被他人追踪到iOS设备使用者的行踪。在移动网络连接中也使用了相同的安全机制。<br>同时，加强型的PNO也使用了同样的安全机制，当某个应用使用了Location Service的geofences，geofences指的是类似基于地址信息的提示，当iOS设备接近某个指定的地址时给出提示。</p>
-<p>这个随机的MAC地址，Apple以及硬件制造商都是无法预测或是获取的，保证了MAC地址的安全。但此项技术在iPhone 4s上是不支持的。</p>
+        <p>在iOS7时，当我们需要自定义模态弹出ViewController时需要一个实现<code>UIViewControllerAnimatedTransitioning</code>协议的类。并通过实现该协议的方法来达到我们希望的动画效果。</p>
+<p>到了iOS8，苹果为我们提供了一个<code>UIPresentViewController</code>，让我们可以更好地自定义弹出效果。</p>
 
       
     </div>
@@ -310,13 +306,13 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/09/06/StatusBar/" rel="next" title="iOS Status Bar Change Color">
+                <i class="fa fa-chevron-left"></i> iOS Status Bar Change Color
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/06/StatusBar/" rel="prev" title="iOS Status Bar Change Color">
-                iOS Status Bar Change Color <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -416,7 +412,7 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS"><span class="nav-number">1.</span> <span class="nav-text">TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App-Transport-Security"><span class="nav-number">1.1.</span> <span class="nav-text">App Transport Security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">2.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wi-Fi"><span class="nav-number">3.</span> <span class="nav-text">Wi-Fi</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>
