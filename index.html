@@ -495,6 +495,7 @@
 <h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>iOS的VPN配置，可以分为不同维度安全连接保证，例如：全局开启、针对某个App开启、针对某个域名开启。</p>
 <h3 id="Wi-Fi"><a href="#Wi-Fi" class="headerlink" title="Wi-Fi"></a>Wi-Fi</h3><p>iOS支持工业标准的Wi-Fi协议，可使用WPA2企业级加密方式，最大程度的保证数据在传输过程中的安全性。<br>当iOS设备未连接Wi-Fi，并且处于休眠状态，iOS使用随机MAC地址来扫描周围的可连接Wi-Fi。这种在休眠状态下的扫描，被称为Preferred Network Offload(PNO) 扫描。iOS设备会在锁屏后的短时间内进入休眠状态。使用随机MAC地址进行扫描可以防止被他人追踪到iOS设备使用者的行踪。在移动网络连接中也使用了相同的安全机制。<br>同时，加强型的PNO也使用了同样的安全机制，当某个应用使用了Location Service的geofences，geofences指的是类似基于地址信息的提示，当iOS设备接近某个指定的地址时给出提示。</p>
 <p>这个随机的MAC地址，Apple以及硬件制造商都是无法预测或是获取的，保证了MAC地址的安全。但此项技术在iPhone 4s上是不支持的。</p>
+<h3 id="AirDrop-Security"><a href="#AirDrop-Security" class="headerlink" title="AirDrop Security"></a>AirDrop Security</h3><p>iOS设备支持AirDrop，它基于低功耗蓝牙以及Apple发明的点对点Wi-Fi技术来发送文件或信息给附近的设备（包括Mac）。<br>当用户开启AirDrop，一个2048bit的RSA身份认证就已经存储在当前设备上了。AirDrop的身份hash值的创建是基于当前用户的AppleID所关联的邮箱地址和电话号码。<br>当用户使用AirDrop来分享东西，设备将通过低功耗蓝牙发出一个AirDrop的信号。附近开启AirDrop的设备接受到该信号将自己身份hash值返回。<br>AirDrop可以选择分享的范围，仅联系人和所有人。在联系人模式下，发生方将AirDrop信号返回值和自己联系人的hash值进行对比，当匹配到后则建立连接。使用该连接，接受方将完整的身份信息发送给发送方，发生方再用此信息在自己的联系人中进行匹配，当匹配成功后，传输窗口将显示该联系人姓名和头像。<br>当使用所有人模式，传输中显示的便是主机名。</p>
 
           
         

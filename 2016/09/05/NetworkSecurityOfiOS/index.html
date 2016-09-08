@@ -92,7 +92,7 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
 <meta property="og:site_name" content="iossocket's blog">
 <meta property="og:description" content="iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。
 TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，Safari，Calendar，等系统app默认使用了这些机制来保证网络">
-<meta property="og:updated_time" content="2016-09-07T01:05:59.000Z">
+<meta property="og:updated_time" content="2016-09-08T00:47:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Network Security">
 <meta name="twitter:description" content="iOS 为了有效的减少入侵的肯能在网络层，限制了端口，并且移除了 不需要的网络工具，例如 telnet, shell, web server, 无需额外的的防火墙软件在iOS设备上。
@@ -285,6 +285,7 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
 <h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>iOS的VPN配置，可以分为不同维度安全连接保证，例如：全局开启、针对某个App开启、针对某个域名开启。</p>
 <h3 id="Wi-Fi"><a href="#Wi-Fi" class="headerlink" title="Wi-Fi"></a>Wi-Fi</h3><p>iOS支持工业标准的Wi-Fi协议，可使用WPA2企业级加密方式，最大程度的保证数据在传输过程中的安全性。<br>当iOS设备未连接Wi-Fi，并且处于休眠状态，iOS使用随机MAC地址来扫描周围的可连接Wi-Fi。这种在休眠状态下的扫描，被称为Preferred Network Offload(PNO) 扫描。iOS设备会在锁屏后的短时间内进入休眠状态。使用随机MAC地址进行扫描可以防止被他人追踪到iOS设备使用者的行踪。在移动网络连接中也使用了相同的安全机制。<br>同时，加强型的PNO也使用了同样的安全机制，当某个应用使用了Location Service的geofences，geofences指的是类似基于地址信息的提示，当iOS设备接近某个指定的地址时给出提示。</p>
 <p>这个随机的MAC地址，Apple以及硬件制造商都是无法预测或是获取的，保证了MAC地址的安全。但此项技术在iPhone 4s上是不支持的。</p>
+<h3 id="AirDrop-Security"><a href="#AirDrop-Security" class="headerlink" title="AirDrop Security"></a>AirDrop Security</h3><p>iOS设备支持AirDrop，它基于低功耗蓝牙以及Apple发明的点对点Wi-Fi技术来发送文件或信息给附近的设备（包括Mac）。<br>当用户开启AirDrop，一个2048bit的RSA身份认证就已经存储在当前设备上了。AirDrop的身份hash值的创建是基于当前用户的AppleID所关联的邮箱地址和电话号码。<br>当用户使用AirDrop来分享东西，设备将通过低功耗蓝牙发出一个AirDrop的信号。附近开启AirDrop的设备接受到该信号将自己身份hash值返回。<br>AirDrop可以选择分享的范围，仅联系人和所有人。在联系人模式下，发生方将AirDrop信号返回值和自己联系人的hash值进行对比，当匹配到后则建立连接。使用该连接，接受方将完整的身份信息发送给发送方，发生方再用此信息在自己的联系人中进行匹配，当匹配成功后，传输窗口将显示该联系人姓名和头像。<br>当使用所有人模式，传输中显示的便是主机名。</p>
 
       
     </div>
@@ -416,7 +417,7 @@ TLSiOS 支持Transport Layer Security (TLS v1.0, TLS v1.1, TLS v1.2) 和 DTLS，
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS"><span class="nav-number">1.</span> <span class="nav-text">TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App-Transport-Security"><span class="nav-number">1.1.</span> <span class="nav-text">App Transport Security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">2.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wi-Fi"><span class="nav-number">3.</span> <span class="nav-text">Wi-Fi</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS"><span class="nav-number">1.</span> <span class="nav-text">TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App-Transport-Security"><span class="nav-number">1.1.</span> <span class="nav-text">App Transport Security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">2.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wi-Fi"><span class="nav-number">3.</span> <span class="nav-text">Wi-Fi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AirDrop-Security"><span class="nav-number">4.</span> <span class="nav-text">AirDrop Security</span></a></li></ol></div>
             
           </div>
         </section>
